@@ -29,7 +29,7 @@ export default function useAgentRun(runAgent) {
       runAgent(plan, { signal: current.signal }).then(
         (result) => {
           if (current.signal.aborted) return;
-          update({ status: "done", plan, result, error: null });
+          update({ status: plan.risk === "R2" ? "awaiting_approval" : "done", plan, result, error: null });
         },
         (error) => {
           if (current.signal.aborted) return;
