@@ -4,11 +4,6 @@ const IDLE = { status: "idle", plan: null, result: null, error: null };
 
 export default function useAgentRun(runAgent) {
   const [run, setRun] = useState(IDLE);
-
-  if (!runAgent) {
-    return { ...IDLE, start: () => {}, approve: () => {}, reject: () => {} };
-  }
-
   const latest = useRef(IDLE);
   const controller = useRef(null);
 
@@ -19,6 +14,7 @@ export default function useAgentRun(runAgent) {
 
   const start = useCallback(
     (plan) => {
+      if (!runAgent) return;
       const { status } = latest.current;
       if (status === "running" || status === "awaiting_approval") return;
 
