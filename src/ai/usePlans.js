@@ -16,7 +16,8 @@ export default function usePlans(fetchPlans) {
         setStatus("ready");
       })
       .catch((err) => {
-        console.error("Error loading plans", err);
+        setError(err);
+        setStatus("error");
       });
   }, [fetchPlans, attempt]);
 
